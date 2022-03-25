@@ -4,49 +4,57 @@
 package CustomerDataEntry;
 import javax.swing.*;
 import java.awt.*;
+import javax.swing.text.DocumentFilter;
+import javax.swing.text.*;
 public class App {
     CardLayout crd;
     public String getGreeting() {
         return "Hello World!";
     }
-    public JFrame createForm(){
+    private JPanel createPanel(){
+       
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        JLabel firstNameLabel = new JLabel("First Name");
+        JButton subButton = new JButton("Submit Information");
+        JTextArea firstNameArea = new JTextArea(1, 1);
+        DefaultStyledDocument doc = new DefaultStyledDocument();
+        DocumentFilter filter = new DocumentFilter();
+        
+       
+        
+        firstNameArea.setDocument(doc);
+       
+        firstNameArea.setBorder(BorderFactory.createLineBorder(Color.black));
+        JLabel lastNameLabel = new JLabel("Last Name");
+        JLabel zipCodeLabel = new JLabel("Zip Code");
+        firstNameArea.setLineWrap(true);
+        JTextArea lastNameArea = new JTextArea(1,1);
+        lastNameArea.setLineWrap(true);
+        JTextArea zipCodeArea = new JTextArea(1,1);
+        lastNameArea.setBorder(BorderFactory.createLineBorder(Color.black));
+        zipCodeArea.setLineWrap(true);
+        zipCodeArea.setBorder(BorderFactory.createLineBorder(Color.black));
+        panel.add(firstNameLabel);
+        panel.add(firstNameArea);
+        panel.add(lastNameLabel);
+        panel.add(lastNameArea);
+        panel.add(zipCodeLabel);
+        panel.add(zipCodeArea);
+        panel.add(subButton);
+        return panel;
+    }
+    public void createForm(){
         
         JFrame form = new JFrame();
-//        JPanel panel = new JPanel(new CardLayout());;
-//        panel.setSize(700,700);
-//        form.add(panel);
-        form.setPreferredSize(new Dimension(800, 800));
-        JLabel firstNameLabel = new JLabel("First Name");
-        firstNameLabel.setSize(90,90);
-        firstNameLabel.setLocation(300, 50);
-        JLabel lastNameLabel = new JLabel("Last Name");
-        lastNameLabel.setLocation(300,150);
-        
-        JLabel zipCodeLabel = new JLabel("Zip Code");
-        zipCodeLabel.setLocation(300, 200);
-        
-        JTextArea firstNameArea = new JTextArea(5, 10);
-        firstNameArea.setLocation(300, 250);
-        
-        JTextArea lastNameArea = new JTextArea(5,10);
-        
-        JTextArea zipCodeArea = new JTextArea(5,10);
-        lastNameLabel.setSize(90, 90);
-        
-        form.add(firstNameLabel, BorderLayout.NORTH);
-        form.add(lastNameLabel);
-        form.add(zipCodeLabel);
-        form.add(firstNameArea, BorderLayout.NORTH);
-        form.add(lastNameArea);
-        form.add(zipCodeArea);
+        form.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        form.setContentPane(createPanel());
         
         form.pack();
+        form.setPreferredSize(new Dimension(800, 500));
+        form.setLocation(500, 200);
+        
         form.setVisible(true);
         
-    
-        
-        
-        return form;
     }
 
     public static void main(String[] args) {
