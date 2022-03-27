@@ -13,27 +13,30 @@ public class App {
     }
     private JPanel createPanel(){
        
+        //Setting up the panel.
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        
+        //Creating the label variables
         JLabel firstNameLabel = new JLabel("First Name");
-        JButton subButton = new JButton("Submit Information");
-        JTextArea firstNameArea = new JTextArea(1, 1);
-        DefaultStyledDocument doc = new DefaultStyledDocument();
-        DocumentFilter filter = new DocumentFilter();
-        
-       
-        
-        firstNameArea.setDocument(doc);
-       
-        firstNameArea.setBorder(BorderFactory.createLineBorder(Color.black));
         JLabel lastNameLabel = new JLabel("Last Name");
-        JLabel zipCodeLabel = new JLabel("Zip Code");
-        firstNameArea.setLineWrap(true);
+        JLabel zipCodeLabel = new JLabel("Zip Code");JButton subButton = new JButton("Submit Information");
+        
+        //Creating the textarea variables
+        JTextArea firstNameArea = new JTextArea(1, 1);
         JTextArea lastNameArea = new JTextArea(1,1);
-        lastNameArea.setLineWrap(true);
         JTextArea zipCodeArea = new JTextArea(1,1);
+        
+        //creating borders for the textareas
+        firstNameArea.setLineWrap(true);
+        firstNameArea.setBorder(BorderFactory.createLineBorder(Color.black));
+        
+        lastNameArea.setLineWrap(true);
         lastNameArea.setBorder(BorderFactory.createLineBorder(Color.black));
+        
         zipCodeArea.setLineWrap(true);
         zipCodeArea.setBorder(BorderFactory.createLineBorder(Color.black));
+        
+        //Adding components to the panel.
         panel.add(firstNameLabel);
         panel.add(firstNameArea);
         panel.add(lastNameLabel);
@@ -41,6 +44,8 @@ public class App {
         panel.add(zipCodeLabel);
         panel.add(zipCodeArea);
         panel.add(subButton);
+
+        // Returns the panel.
         return panel;
     }
     public void createForm(){
