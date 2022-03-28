@@ -73,6 +73,8 @@ public class App {
         String firstName = firstNameArea.getText().toString();
         String lastName = lastNameArea.getText().toString();
         String zipCode = zipCodeArea.getText().toString();
+
+
         // Prevents the form from submitting information if it is null or void.
         if (firstName == " " || firstName.length() == 0 && lastName == " " || lastName.length() == 0 && zipCode == " " || zipCode.length() == 0) {
         System.out.println("No information Entered");
@@ -81,6 +83,10 @@ public class App {
         { // If not null or void, then it sends the information from the form.
           DocumentInsert(CreateConnection(), firstName, lastName, zipCode);
           System.out.println("Data Entered");
+          firstNameArea.setText("");
+          lastNameArea.setText("");
+          zipCodeArea.setText("");
+          firstNameArea.requestFocus();
         }
       }
     });
