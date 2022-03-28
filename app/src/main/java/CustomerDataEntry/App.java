@@ -4,15 +4,52 @@
 package CustomerDataEntry;
 import javax.swing.*;
 import java.awt.*;
-import javax.swing.text.DocumentFilter;
-import javax.swing.text.*;
+import org.bson.BsonDocument;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoDatabase;
+import org.bson.Document;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.MongoClientSettings;
+import com.mongodb.ConnectionString;
+
 public class App {
-    CardLayout crd;
-    public String getGreeting() {
-        return "Hello World!";
+
+    // Method to connect to the database and insert Document.
+    private void CreateConnection(){
+    try {
+        // Connection String
+        ConnectionString conn = new ConnectionString("mongodb+srv://lee:Gamez2232@cluster0.guc9f.mongodb.net/GaugeDB?retryWrites=true&w=majority");
+        
+        // MongoSettings
+        MongoClientSettings settings = MongoClientSettings.builder()    
+            .applyConnectionString(conn)
+            .build();
+        // Initialzing the client with the settings.
+        MongoClient mongoClient = MongoClients.create(settings);
+
+        // Initializing the variable for connecting to the GaugeDB database.
+        MongoDatabase database = mongoClient.getDatabase("GaugeDB");
+    
+        // Initializing the variable for connecting to the collection. 
+        MongoCollection<Document> coll = database.getCollection("Suppliers");
+
+        // Creating the document that will be inserted into the database.
+        Document doc = new Document()
+                    .append("name", "cole")
+                    .append("type", "cool");
+        //Inserting the document into the database.
+        coll.insertOne(doc);
+      
+    }finally{
+        // Notification that the operation was completed.
+        System.out.println("Document Inserted");
     }
+    
+
+}
     private JPanel createPanel(){
        
         //Setting up the panel.
@@ -29,11 +66,8 @@ public class App {
         JButton subButton = new JButton("Submit Information");
         subButton.addActionListener(new ActionListener(){
             
-            public void actionPerformed(ActionEvent e) {
-                System.out.println(firstNameArea.getText());
-                System.out.println(lastNameArea.getText());
-                System.out.println(zipCodeArea.getText());
-                System.out.println("Hello");
+            @Override public void actionPerformed(ActionEvent e) {
+               CreateConnection();
             }
         });
         
