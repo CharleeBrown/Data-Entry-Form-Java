@@ -94,16 +94,29 @@ public class App {
         // Returns the panel.
         return panel;
     }
+
+    //Method to create the form.
     public void createForm(){
         
+        // Main form vairable.
         JFrame form = new JFrame();
+
+        // When the form is closed, it will exit.
         form.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // calling the panel method to create it within the form.
         form.setContentPane(createPanel());
         
+        // The size inside the form is shrunk down by the Pack() method.
         form.pack();
+
+        // Setting the size of the form.
         form.setPreferredSize(new Dimension(800, 500));
+
+        // Setting the location of the form on the screen.
         form.setLocation(500, 200);
         
+        // Enabling visibility of the form.
         form.setVisible(true);
         
     }
