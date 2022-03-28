@@ -67,11 +67,13 @@ public class App {
         //CreateConnection();
         String test = firstNameArea.getText().toString();
         String test2 = lastNameArea.getText().toString();
+
+        // Prevents the form from submitting information if it is null or void.
         if (test == " " || test.length() == 0 && test2 == " " || test2.length() == 0) {
         System.out.println("No information Entered");
-          
-         
-        } else {
+        } 
+        else 
+        { // If not null or void, then it sends the information from the form.
           DocumentInsert(CreateConnection(), test, test2);
           System.out.println("Data Entered");
         }
