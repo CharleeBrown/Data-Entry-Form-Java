@@ -16,117 +16,114 @@ import com.mongodb.ConnectionString;
 
 public class App {
 
-    // Method to connect to the database and insert Document.
-    public MongoClient CreateConnection(){
-  
-        // Connection String
-        ConnectionString conn = new ConnectionString("mongodb+srv://lee:Gamez2232@cluster0.guc9f.mongodb.net/GaugeDB?retryWrites=true&w=majority");
-        
-        // MongoSettings
-        MongoClientSettings settings = MongoClientSettings.builder()    
-            .applyConnectionString(conn)
-            .build();
-        // Initialzing the client with the settings.
-        MongoClient mongoClient = MongoClients.create(settings);
+  // Method to connect to the database and insert Document.
+  public MongoClient CreateConnection() {
 
-        return mongoClient;
+    // Connection String
+    ConnectionString conn = new ConnectionString("mongodb+srv://lee:Gamez2232@cluster0.guc9f.mongodb.net/GaugeDB?retryWrites=true&w=majority");
 
-}
-    public void DocumentInsert(MongoClient client, String keyOne, String keyTwo){
+    // MongoSettings
+    MongoClientSettings settings = MongoClientSettings.builder()
+      .applyConnectionString(conn)
+      .build();
+    // Initialzing the client with the settings.
+    MongoClient mongoClient = MongoClients.create(settings);
+
+    return mongoClient;
+
+  }
+  public void DocumentInsert(MongoClient client, String keyOne, String keyTwo) {
     // Initializing the variable for connecting to the GaugeDB database.
     MongoDatabase database = client.getDatabase("GaugeDB");
-        
-    // Initializing the variable for connecting to the collection. 
-    MongoCollection<Document> coll = database.getCollection("Suppliers");
 
-    
+    // Initializing the variable for connecting to the collection. 
+    MongoCollection < Document > coll = database.getCollection("Suppliers");
+
     // Creating the document that will be inserted into the database.
     Document doc = new Document()
-                .append("name", keyOne)
-                .append("type", keyTwo);
+      .append("name", keyOne)
+      .append("type", keyTwo);
     //Inserting the document into the database.
     coll.insertOne(doc);
-    }
-    public JPanel createPanel(){
-       
-        //Setting up the panel.
-        JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
+  }
+  public JPanel createPanel() {
+    //Setting up the panel.
+    JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
 
-        //Creating the textarea variables
-        JTextArea firstNameArea = new JTextArea(1, 1);
-        JTextArea lastNameArea = new JTextArea(1,1);
-        JTextArea zipCodeArea = new JTextArea(1,1);
-        
-        //Creating the label variables
-        JLabel firstNameLabel = new JLabel("First Name");
-        JLabel lastNameLabel = new JLabel("Last Name");
-        JLabel zipCodeLabel = new JLabel("Zip Code");
-        JButton subButton = new JButton("Submit Information");
-    
-        subButton.addActionListener(new ActionListener(){
-            
-            @Override public void actionPerformed(ActionEvent e) {
-               //CreateConnection();
-                String test = firstNameArea.getText().toString();
-                String test2 = lastNameArea.getText().toString();
-                if(test != "" || test.length() !=0 && test2 != "" || test2.length() !=0)
-                    {
-                DocumentInsert(CreateConnection(), test, test2);
-                    }
-                else{
-                    System.out.println("No information Entered");}
-                    }
-        });
-        //creating borders for the textareas
-        firstNameArea.setLineWrap(true);
-        firstNameArea.setBorder(BorderFactory.createLineBorder(Color.black));
-        
-        lastNameArea.setLineWrap(true);
-        lastNameArea.setBorder(BorderFactory.createLineBorder(Color.black));
-        
-        zipCodeArea.setLineWrap(true);
-        zipCodeArea.setBorder(BorderFactory.createLineBorder(Color.black));
-        
-        //Adding components to the panel.
-        panel.add(firstNameLabel);
-        panel.add(firstNameArea);
-        panel.add(lastNameLabel);
-        panel.add(lastNameArea);
-        panel.add(zipCodeLabel);
-        panel.add(zipCodeArea);
-        panel.add(subButton);
+    //Creating the textarea variables
+    JTextArea firstNameArea = new JTextArea(1, 1);
+    JTextArea lastNameArea = new JTextArea(1, 1);
+    JTextArea zipCodeArea = new JTextArea(1, 1);
 
-        // Returns the panel.
-        return panel;
-    }
+    //Creating the label variables
+    JLabel firstNameLabel = new JLabel("First Name");
+    JLabel lastNameLabel = new JLabel("Last Name");
+    JLabel zipCodeLabel = new JLabel("Zip Code");
+    JButton subButton = new JButton("Submit Information");
 
-    //Method to create the form.
-    public void createForm(){
-        
-        // Main form vairable.
-        JFrame form = new JFrame();
+    subButton.addActionListener(new ActionListener() {
 
-        // When the form is closed, it will exit.
-        form.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      @Override public void actionPerformed(ActionEvent e) {
+        //CreateConnection();
+        String test = firstNameArea.getText().toString();
+        String test2 = lastNameArea.getText().toString();
+        if (test != "" || test.length() != 0 && test2 != "" || test2.length() != 0) {
+          DocumentInsert(CreateConnection(), test, test2);
+        } else {
+          System.out.println("No information Entered");
+        }
+      }
+    });
+    //creating borders for the textareas
+    firstNameArea.setLineWrap(true);
+    firstNameArea.setBorder(BorderFactory.createLineBorder(Color.black));
 
-        // calling the panel method to create it within the form.
-        form.setContentPane(createPanel());
-        
-        // The size inside the form is shrunk down by the Pack() method.
-        form.pack();
+    lastNameArea.setLineWrap(true);
+    lastNameArea.setBorder(BorderFactory.createLineBorder(Color.black));
 
-        // Setting the size of the form.
-        form.setPreferredSize(new Dimension(800, 500));
+    zipCodeArea.setLineWrap(true);
+    zipCodeArea.setBorder(BorderFactory.createLineBorder(Color.black));
 
-        // Setting the location of the form on the screen.
-        form.setLocation(500, 200);
-        
-        // Enabling visibility of the form.
-        form.setVisible(true);
-        
-    }
+    //Adding components to the panel.
+    panel.add(firstNameLabel);
+    panel.add(firstNameArea);
+    panel.add(lastNameLabel);
+    panel.add(lastNameArea);
+    panel.add(zipCodeLabel);
+    panel.add(zipCodeArea);
+    panel.add(subButton);
 
-    public static void main(String[] args) {
-        new App().createForm();
-    }
+    // Returns the panel.
+    return panel;
+  }
+
+  //Method to create the form.
+  public void createForm() {
+
+    // Main form vairable.
+    JFrame form = new JFrame();
+
+    // When the form is closed, it will exit.
+    form.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+    // calling the panel method to create it within the form.
+    form.setContentPane(createPanel());
+
+    // The size inside the form is shrunk down by the Pack() method.
+    form.pack();
+
+    // Setting the size of the form.
+    form.setPreferredSize(new Dimension(800, 500));
+
+    // Setting the location of the form on the screen.
+    form.setLocation(500, 200);
+
+    // Enabling visibility of the form.
+    form.setVisible(true);
+
+  }
+
+  public static void main(String[] args) {
+    new App().createForm();
+  }
 }
