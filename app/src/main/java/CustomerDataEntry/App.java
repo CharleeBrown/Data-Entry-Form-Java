@@ -6,6 +6,8 @@ import javax.swing.*;
 import java.awt.*;
 import javax.swing.text.DocumentFilter;
 import javax.swing.text.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 public class App {
     CardLayout crd;
     public String getGreeting() {
@@ -15,17 +17,27 @@ public class App {
        
         //Setting up the panel.
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
-        
-        //Creating the label variables
-        JLabel firstNameLabel = new JLabel("First Name");
-        JLabel lastNameLabel = new JLabel("Last Name");
-        JLabel zipCodeLabel = new JLabel("Zip Code");JButton subButton = new JButton("Submit Information");
-        
-        //Creating the textarea variables
+           //Creating the textarea variables
         JTextArea firstNameArea = new JTextArea(1, 1);
         JTextArea lastNameArea = new JTextArea(1,1);
         JTextArea zipCodeArea = new JTextArea(1,1);
         
+        //Creating the label variables
+        JLabel firstNameLabel = new JLabel("First Name");
+        JLabel lastNameLabel = new JLabel("Last Name");
+        JLabel zipCodeLabel = new JLabel("Zip Code");
+        JButton subButton = new JButton("Submit Information");
+        subButton.addActionListener(new ActionListener(){
+            
+            public void actionPerformed(ActionEvent e) {
+                System.out.println(firstNameArea.getText());
+                System.out.println(lastNameArea.getText());
+                System.out.println(zipCodeArea.getText());
+                System.out.println("Hello");
+            }
+        });
+        
+     
         //creating borders for the textareas
         firstNameArea.setLineWrap(true);
         firstNameArea.setBorder(BorderFactory.createLineBorder(Color.black));
