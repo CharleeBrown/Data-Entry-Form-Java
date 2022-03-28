@@ -63,14 +63,17 @@ public class App {
 
     subButton.addActionListener(new ActionListener() {
 
-      @Override public void actionPerformed(ActionEvent e) {
+        public void actionPerformed(ActionEvent e) {
         //CreateConnection();
         String test = firstNameArea.getText().toString();
         String test2 = lastNameArea.getText().toString();
-        if (test != "" || test.length() != 0 && test2 != "" || test2.length() != 0) {
-          DocumentInsert(CreateConnection(), test, test2);
+        if (test == " " || test.length() == 0 && test2 == " " || test2.length() == 0) {
+        System.out.println("No information Entered");
+          
+         
         } else {
-          System.out.println("No information Entered");
+          DocumentInsert(CreateConnection(), test, test2);
+          System.out.println("Data Entered");
         }
       }
     });
