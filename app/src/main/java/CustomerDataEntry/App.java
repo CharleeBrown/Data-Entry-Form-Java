@@ -4,7 +4,6 @@
 package CustomerDataEntry;
 import javax.swing.*;
 import java.awt.*;
-import org.bson.BsonDocument;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import com.mongodb.client.MongoClients;
@@ -18,8 +17,8 @@ import com.mongodb.ConnectionString;
 public class App {
 
     // Method to connect to the database and insert Document.
-    private void CreateConnection(){
-    try {
+    public MongoClient CreateConnection(){
+  
         // Connection String
         ConnectionString conn = new ConnectionString("mongodb+srv://lee:Gamez2232@cluster0.guc9f.mongodb.net/GaugeDB?retryWrites=true&w=majority");
         
@@ -30,31 +29,30 @@ public class App {
         // Initialzing the client with the settings.
         MongoClient mongoClient = MongoClients.create(settings);
 
-        // Initializing the variable for connecting to the GaugeDB database.
-        MongoDatabase database = mongoClient.getDatabase("GaugeDB");
-    
-        // Initializing the variable for connecting to the collection. 
-        MongoCollection<Document> coll = database.getCollection("Suppliers");
-
-        // Creating the document that will be inserted into the database.
-        Document doc = new Document()
-                    .append("name", "cole")
-                    .append("type", "cool");
-        //Inserting the document into the database.
-        coll.insertOne(doc);
-      
-    }finally{
-        // Notification that the operation was completed.
-        System.out.println("Document Inserted");
-    }
-    
+        return mongoClient;
 
 }
-    private JPanel createPanel(){
+    public void DocumentInsert(MongoClient client, String keyOne, String keyTwo){
+    // Initializing the variable for connecting to the GaugeDB database.
+    MongoDatabase database = client.getDatabase("GaugeDB");
+        
+    // Initializing the variable for connecting to the collection. 
+    MongoCollection<Document> coll = database.getCollection("Suppliers");
+
+    
+    // Creating the document that will be inserted into the database.
+    Document doc = new Document()
+                .append("name", keyOne)
+                .append("type", keyTwo);
+    //Inserting the document into the database.
+    coll.insertOne(doc);
+    }
+    public JPanel createPanel(){
        
         //Setting up the panel.
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
-           //Creating the textarea variables
+
+        //Creating the textarea variables
         JTextArea firstNameArea = new JTextArea(1, 1);
         JTextArea lastNameArea = new JTextArea(1,1);
         JTextArea zipCodeArea = new JTextArea(1,1);
@@ -64,14 +62,21 @@ public class App {
         JLabel lastNameLabel = new JLabel("Last Name");
         JLabel zipCodeLabel = new JLabel("Zip Code");
         JButton subButton = new JButton("Submit Information");
+    
         subButton.addActionListener(new ActionListener(){
             
             @Override public void actionPerformed(ActionEvent e) {
-               CreateConnection();
-            }
+               //CreateConnection();
+                String test = firstNameArea.getText().toString();
+                String test2 = lastNameArea.getText().toString();
+                if(test != "" || test.length() !=0 && test2 != "" || test2.length() !=0)
+                    {
+                DocumentInsert(CreateConnection(), test, test2);
+                    }
+                else{
+                    System.out.println("No information Entered");}
+                    }
         });
-        
-     
         //creating borders for the textareas
         firstNameArea.setLineWrap(true);
         firstNameArea.setBorder(BorderFactory.createLineBorder(Color.black));

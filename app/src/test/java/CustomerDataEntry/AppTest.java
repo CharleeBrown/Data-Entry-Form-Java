@@ -5,10 +5,13 @@ package CustomerDataEntry;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import javax.swing.*;
 
 class AppTest {
-    @Test void appHasAGreeting() {
+    @Test 
+    public void appHasAGreeting() {
         App classUnderTest = new App();
-        assertNotNull(classUnderTest.getGreeting(), "app should have a greeting");
+        JPanel panel = new JPanel();
+        assertNotEquals(panel, classUnderTest.createPanel());
     }
 }
