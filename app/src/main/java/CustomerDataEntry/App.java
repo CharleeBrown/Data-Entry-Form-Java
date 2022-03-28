@@ -5,6 +5,8 @@ package CustomerDataEntry;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.ActionListener;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoDatabase;
@@ -32,7 +34,7 @@ public class App {
     return mongoClient;
 
   }
-  public void DocumentInsert(MongoClient client, String keyOne, String keyTwo) {
+  public void DocumentInsert(MongoClient client, String firstName, String lastName, String zipCode) {
     // Initializing the variable for connecting to the GaugeDB database.
     MongoDatabase database = client.getDatabase("GaugeDB");
 
@@ -41,8 +43,9 @@ public class App {
 
     // Creating the document that will be inserted into the database.
     Document doc = new Document()
-      .append("name", keyOne)
-      .append("type", keyTwo);
+      .append("firstname", firstName)
+      .append("lastname", lastName)
+      .append("zipcode", zipCode);
     //Inserting the document into the database.
     coll.insertOne(doc);
   }
@@ -55,26 +58,28 @@ public class App {
     JTextArea lastNameArea = new JTextArea(1, 1);
     JTextArea zipCodeArea = new JTextArea(1, 1);
 
+    JTextArea text = new JTextArea();
+    
     //Creating the label variables
     JLabel firstNameLabel = new JLabel("First Name");
     JLabel lastNameLabel = new JLabel("Last Name");
     JLabel zipCodeLabel = new JLabel("Zip Code");
     JButton subButton = new JButton("Submit Information");
-
+    
     subButton.addActionListener(new ActionListener() {
 
         public void actionPerformed(ActionEvent e) {
         //CreateConnection();
-        String test = firstNameArea.getText().toString();
-        String test2 = lastNameArea.getText().toString();
-
+        String firstName = firstNameArea.getText().toString();
+        String lastName = lastNameArea.getText().toString();
+        String zipCode = zipCodeArea.getText().toString();
         // Prevents the form from submitting information if it is null or void.
-        if (test == " " || test.length() == 0 && test2 == " " || test2.length() == 0) {
+        if (firstName == " " || firstName.length() == 0 && lastName == " " || lastName.length() == 0 && zipCode == " " || zipCode.length() == 0) {
         System.out.println("No information Entered");
         } 
         else 
         { // If not null or void, then it sends the information from the form.
-          DocumentInsert(CreateConnection(), test, test2);
+          DocumentInsert(CreateConnection(), firstName, lastName, zipCode);
           System.out.println("Data Entered");
         }
       }
@@ -88,6 +93,48 @@ public class App {
 
     zipCodeArea.setLineWrap(true);
     zipCodeArea.setBorder(BorderFactory.createLineBorder(Color.black));
+
+    firstNameArea.addKeyListener(new KeyAdapter() {
+      @Override
+      public void keyPressed(KeyEvent e) {
+          if (e.getKeyCode() == KeyEvent.VK_TAB) {
+              if (e.getModifiersEx() > 0) {
+                firstNameArea.transferFocusBackward();
+              } else {
+                firstNameArea.transferFocus();
+              }
+              e.consume();
+          }
+      }
+  });
+  zipCodeArea.addKeyListener(new KeyAdapter() {
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_TAB) {
+            if (e.getModifiersEx() > 0) {
+              zipCodeArea.transferFocusBackward();
+            } else {
+              zipCodeArea.transferFocus();
+            }
+            e.consume();
+        }
+  }
+});
+  
+  lastNameArea.addKeyListener(new KeyAdapter() {
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_TAB) {
+            if (e.getModifiersEx() > 0) {
+              lastNameArea.transferFocusBackward();
+            } else {
+              lastNameArea.transferFocus();
+            }
+            e.consume();
+        }
+    }
+    });
+
 
     //Adding components to the panel.
     panel.add(firstNameLabel);
