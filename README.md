@@ -1,6 +1,6 @@
 # Data Entry Form.
 
-![](./DataEntryFrom.jpg)
+![DataEntryForm](DataEntryFrom.jpg)
  So I've taught myself Java over the last 3 days.
  I've created a basic data entry form.
  It captures first name, last name and zip code.
