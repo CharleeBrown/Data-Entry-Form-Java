@@ -34,6 +34,7 @@ public class App {
     return mongoClient;
 
   }
+
   public void DocumentInsert(MongoClient client, String firstName, String lastName, String zipCode) {
     // Initializing the variable for connecting to the GaugeDB database.
     MongoDatabase database = client.getDatabase("GaugeDB");
@@ -80,13 +81,14 @@ public class App {
         System.out.println("No information Entered");
         } 
         else 
-        { // If not null or void, then it sends the information from the form.
+        { // If not null or void, then it sends the information from the form to the database.
           DocumentInsert(CreateConnection(), firstName, lastName, zipCode);
           System.out.println("Data Entered");
           firstNameArea.setText("");
           lastNameArea.setText("");
           zipCodeArea.setText("");
           firstNameArea.requestFocus();
+          JOptionPane.showMessageDialog(panel, "Data Submitted");
         }
       }
     });
