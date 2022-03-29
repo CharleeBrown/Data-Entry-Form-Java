@@ -100,6 +100,11 @@ public class App {
     zipCodeArea.setLineWrap(true);
     zipCodeArea.setBorder(BorderFactory.createLineBorder(Color.black));
 
+    /* Creating KeyListeners for each TextArea.
+      The KeyListeners watch for the press of the Tab key.
+      Once the key is pressed, it will focus the next TextArea.
+      If Shift and Tab are pressed, the focus moves back one.
+     */
     firstNameArea.addKeyListener(new KeyAdapter() {
       @Override
       public void keyPressed(KeyEvent e) {
