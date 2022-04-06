@@ -9,6 +9,3 @@
  Then sends the data to a Mongo database.
  After the data is submitted, a messagebox appears to notify you that is was submitted.
 
---------------
-I wanted to dip my toe into Java, and so far I like it more than C-sharp(C#)
-
