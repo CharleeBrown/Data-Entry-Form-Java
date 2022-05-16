@@ -16,6 +16,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.ConnectionString;
 
+
 public class App {
 
   // Method to connect to the database and insert Document.
@@ -43,12 +44,8 @@ public class App {
     MongoCollection < Document > coll = database.getCollection("Suppliers");
 
     // Creating the document that will be inserted into the database.
-    Document doc = new Document()
-      .append("firstname", firstName)
-      .append("lastname", lastName)
-      .append("zipcode", zipCode);
-    //Inserting the document into the database.
-    coll.insertOne(doc);
+    CustomerDataEntry.screen newScreen = new CustomerDataEntry.screen();
+    newScreen.DocumentInsert(client);
   }
   public JPanel createPanel() {
     //Setting up the panel.
@@ -74,7 +71,7 @@ public class App {
         String firstName = firstNameArea.getText().toString();
         String lastName = lastNameArea.getText().toString();
         String zipCode = zipCodeArea.getText().toString();
-
+       
 
         // Prevents the form from submitting information if it is null or void.
         if (firstName == " " || firstName.length() == 0 && lastName == " " || lastName.length() == 0 && zipCode == " " || zipCode.length() == 0) {
